@@ -3,7 +3,10 @@ import Card from '../components/card/Card';  // Assuming Card component is impor
 
 const Summary = () => {
     return (
-        <div className="container py-4">
+        <div className="container py-4"
+            data-aos='zoom-in'
+            data-aos-delay="400"
+        >
             <h1 className="mt-5 mb-5">Summary</h1>
 
             {/* Insights */}

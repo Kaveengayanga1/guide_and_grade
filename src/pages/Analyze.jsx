@@ -8,7 +8,9 @@ const Analyze = () => {
   };
 
   return (
-    <Container className="py-5 mt-5">
+    <Container className="py-5 mt-5"
+      data-aos='zoom-in'
+      data-aos-delay="400">
       <Row>
         {/* Text Section */}
         <Col className="text-center mt-4">

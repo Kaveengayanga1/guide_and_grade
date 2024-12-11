@@ -3,10 +3,14 @@ import Analyze from './Analyze';
 
 const Home = (props) => {
   return (
-    <div className="container py-5 mt-5">
+    <div
+      className="container py-5 mt-5"
+      data-aos='zoom-in'
+      data-aos-delay="400"
+    >
       <div className="row">
         <div className="col-12 text-center">
-          <h1 className="display-4 mb-4">Welcome to Guide & Grade</h1>
+          <h1 className="display-4 mb-4" data-aos="fade-in">Welcome to Guide & Grade</h1>
           <p className="lead">
             Revolutionize your presentations with real-time feedback and speech analysis. Master clarity, fluency, pacing, and engagement.
           </p>
@@ -14,7 +18,7 @@ const Home = (props) => {
             Whether you're preparing for a pitch, a presentation, or refining your speaking skills, Guide & Grade is here to help you succeed.
           </p>
           <a href="#features" className="btn btn-primary btn-lg mt-5 mb-3" onClick={() => {
-            <Analyze/>
+            <Analyze />
           }}>Explore Features</a>
         </div>
       </div>
