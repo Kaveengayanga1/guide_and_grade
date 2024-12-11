@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => {
   return (
     <div className="container py-5"
-      data-aos='zoom-in'
+      data-aos='zooms-in'
       data-aos-delay="200"
     >
       <h1 className="mt-5 mb-4">About Guide & Grade</h1>
