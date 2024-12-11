@@ -1,11 +1,40 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './components/Navbar'
+import About from './pages/About'
+import Home from './pages/Home'
+import Summary from './pages/Summary'
+import Analyze from './pages/Analyze'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [component, setComponent] = useState(<Home/>);
+
+  // Function to change the page component
+  function pageRouterSetter(selectedMenuItem) {
+    console.log(`${selectedMenuItem} page selected`);
+    switch (selectedMenuItem) {
+      case 'home': {
+        setComponent(<Home />);
+        break;
+      }
+      case 'summary': {
+        setComponent(<Summary/>);
+        break;
+      }
+      case 'analyze': {
+        setComponent(<Analyze/>);
+        break;
+      }
+      case 'about': {
+        setComponent(<About/>);
+        break;
+      }
+      default: {
+        setComponent(<Home />);
+        break;
+      }
+    }
+  }
 
   return (
     // <>
@@ -32,11 +61,12 @@ function App() {
     // </>
 
     <div>
+      <Navbar getPageForRouting={pageRouterSetter} />
+      {component}
 
-      <Navbar/>
-      
+
     </div>
   )
 }
 
-export default App
+export default App;
