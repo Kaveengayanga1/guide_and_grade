@@ -1,10 +1,14 @@
 import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';  // Import Bootstrap components
+import Timer from './timer';
 
 const Analyze = () => {
+
+  //const [component, setComponent] = useState(<Timer/>);
+
   // Function to handle button click
   const handleAnalyzeClick = () => {
-    alert('Button clicked for Analyze page!');
+    <Timer/>
   };
 
   return (
@@ -16,7 +20,8 @@ const Analyze = () => {
         <Col className="text-center mt-4">
           <h1>Analyze Your Presentation</h1>
           <p>
-            Use the button below to begin analyzing your presentation. The platform will assess aspects such as clarity, fluency, pacing, and engagement.
+            Use the button below to begin analyzing your presentation. The platform will assess aspects such as 
+            clarity, fluency, pacing, and coherence.
           </p>
         </Col>
       </Row>

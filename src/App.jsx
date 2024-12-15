@@ -5,6 +5,7 @@ import About from './pages/About'
 import Home from './pages/Home'
 import Summary from './pages/Summary'
 import Analyze from './pages/Analyze'
+import Timer from './pages/timer'
 
 function App() {
   const [component, setComponent] = useState(<Home/>);
