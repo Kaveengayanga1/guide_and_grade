@@ -24,7 +24,7 @@ const Summary = () => {
                                 <Card name="Clarity" progress={60} borderColor="#1e90ff" progressColor="#1e90ff" size={60} />
                             </div>
                             <div className="col-12 col-sm-6 mb-4">
-                                <Card name="Fulency" progress={50} borderColor="#ffcc00" progressColor="#ffcc00" size={60} />
+                                <Card name="Fluency" progress={50} borderColor="#ffcc00" progressColor="#ffcc00" size={60} />
                             </div>
                             <div className="col-12 col-sm-6 mb-4">
                                 <Card name="Pacing" progress={80} borderColor="#32cd32" progressColor="#32cd32" size={60} />

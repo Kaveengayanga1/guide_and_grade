@@ -20,7 +20,7 @@ const Analyze = (props) => {
         <Col className="text-center mt-4">
           <h1>Analyze Your Presentation</h1>
           <p>
-            Use the button below to begin analyzing your presentation. The platform will assess aspects such as 
+            Use the button below to begin analyzing your presentation. The platform will assess aspects of the speech such as 
             clarity, fluency, pacing, and coherence.
           </p>
         </Col>
@@ -42,7 +42,7 @@ const Analyze = (props) => {
         <Col className="text-center">
           <h3>How It Works</h3>
           <p>
-            The analysis will provide real-time feedback to help you improve your speaking performance. Click the button above to get started.
+            The analysis will provide real-time feedback on the speaking performance. Click the button above to get started.
           </p>
         </Col>
       </Row>
