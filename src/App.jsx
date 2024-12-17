@@ -23,11 +23,15 @@ function App() {
         break;
       }
       case 'analyze': {
-        setComponent(<Analyze/>);
+        setComponent(<Analyze setTimer={pageRouterSetter}/>);
         break;
       }
       case 'about': {
         setComponent(<About/>);
+        break;
+      }
+      case 'timer': {
+        setComponent(<Timer/>);
         break;
       }
       default: {

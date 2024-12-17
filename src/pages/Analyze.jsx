@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';  // Import Bootstrap components
 import Timer from './timer';
 
-const Analyze = () => {
+const Analyze = (props) => {
 
   //const [component, setComponent] = useState(<Timer/>);
 
@@ -29,7 +29,9 @@ const Analyze = () => {
       <Row className="justify-content-center mt-4">
         {/* Button */}
         <Col xs="auto">
-          <Button variant="primary" size="lg" onClick={handleAnalyzeClick}>
+          <Button variant="primary" size="lg" onClick={() =>{
+            props.setTimer('timer');
+          }}>
             Start Analysis
           </Button>
         </Col>
