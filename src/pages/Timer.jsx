@@ -2,7 +2,56 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css'; // Import animate.css for animations
 
+const host = "https://guide-and-grade-api.onrender.com";
 const Timer = () => {
+    async function setTimer() {
+    
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            startTime: time,
+          }),
+        };
+        fetch(host + "/setStartTime", requestOptions);
+      }
+    function handleStartStop() {
+        if (start) {
+          setStart(false);
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: "{}",
+          };
+          fetch(
+            "https://guide-and-grade-api.onrender.com/stopTimer",
+            requestOptions
+          );
+        } else {
+          setStart(true);
+          const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: "{}",
+          };
+          fetch(
+            "https://guide-and-grade-api.onrender.com/startTimer",
+            requestOptions
+          );
+        }
+      }
+      function resetTimer() {
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: "{}",
+        };
+        fetch(
+          "https://guide-and-grade-api.onrender.com/resetTimer",
+          requestOptions
+        );
+      }
+    const [start, setStart] = useState(false);
     const [time, setTime] = useState(0);
     const [inputMinutes, setInputMinutes] = useState(0);
     const [inputSeconds, setInputSeconds] = useState(0);
@@ -29,8 +78,10 @@ const Timer = () => {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
-    const handleStart = () => {
+    const handleStart = async () => {
         if (time > 0) {
+            await setTimer();
+            handleStartStop();
             setIsRunning(true);
             setInputSeconds(0);
             setInputMinutes(0);
@@ -38,12 +89,14 @@ const Timer = () => {
     };
 
     const handleStop = () => {
+        handleStartStop();
         setIsRunning(false);
     };
 
     const handleReset = () => {
         setTime(inputMinutes * 60 + inputSeconds);
         setIsRunning(false);
+        resetTimer();
         setInputSeconds(0);
         setInputMinutes(0);
     };
