@@ -1,15 +1,11 @@
 import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';  // Import Bootstrap components
-import Timer from './timer';
 
 const Analyze = (props) => {
 
   //const [component, setComponent] = useState(<Timer/>);
 
   // Function to handle button click
-  const handleAnalyzeClick = () => {
-    <Timer/>
-  };
 
   return (
     <Container className="py-5 mt-5"

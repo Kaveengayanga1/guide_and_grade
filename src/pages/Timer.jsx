@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css'; // Import animate.css for animations
 
 const host = "https://guide-and-grade-api.onrender.com";
-const Timer = () => {
+export default function Timer(){
     async function setTimer() {
     
         const requestOptions = {
@@ -231,5 +231,3 @@ const Timer = () => {
         </div>
     );
 };
-
-export default Timer;
