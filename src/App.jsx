@@ -44,8 +44,9 @@ function App() {
   return (
 
     <div>
-      <Navbar getPageForRouting={pageRouterSetter} />
-      {component}
+      {/* <Navbar getPageForRouting={pageRouterSetter} />
+      {component} */}
+      <h1>Hello There. Test app running here!</h1>
 
 
     </div>
