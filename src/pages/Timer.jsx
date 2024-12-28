@@ -3,54 +3,54 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css'; // Import animate.css for animations
 
 const host = "https://guide-and-grade-api.onrender.com";
-export default function Timer(props){
+export default function Timer(props) {
     async function setTimer() {
-    
+
         const requestOptions = {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            startTime: time,
-          }),
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                startTime: time,
+            }),
         };
         fetch(host + "/setStartTime", requestOptions);
-      }
+    }
     function handleStartStop() {
         if (start) {
-          setStart(false);
-          const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: "{}",
-          };
-          fetch(
-            "https://guide-and-grade-api.onrender.com/stopTimer",
-            requestOptions
-          );
+            setStart(false);
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: "{}",
+            };
+            fetch(
+                "https://guide-and-grade-api.onrender.com/stopTimer",
+                requestOptions
+            );
         } else {
-          setStart(true);
-          const requestOptions = {
-            method: "POST",
+            setStart(true);
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: "{}",
+            };
+            fetch(
+                "https://guide-and-grade-api.onrender.com/startTimer",
+                requestOptions
+            );
+        }
+    }
+    function resetTimer() {
+        const requestOptions = {
+            method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: "{}",
-          };
-          fetch(
-            "https://guide-and-grade-api.onrender.com/startTimer",
-            requestOptions
-          );
-        }
-      }
-      function resetTimer() {
-        const requestOptions = {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: "{}",
         };
         fetch(
-          "https://guide-and-grade-api.onrender.com/resetTimer",
-          requestOptions
+            "https://guide-and-grade-api.onrender.com/resetTimer",
+            requestOptions
         );
-      }
+    }
     const [start, setStart] = useState(false);
     const [time, setTime] = useState(0);
     const [inputMinutes, setInputMinutes] = useState(0);
@@ -146,53 +146,62 @@ export default function Timer(props){
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
-            <div className="container text-center">
-                <h1 className="mb-4">Start Counting</h1>
-                <div
-                    className={`display-4 mb-4 ${time <= 10 ? 'text-danger animate__animated animate__flash' : ''}`}
-                >
-                    {formatTime(time)}
-                </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col"></div>
+                    <div className="col-5 " data-aos='zoom-in' data-aos-delay="400" data-aos-duration="1000">
+                        <div className="container text-center p-4 shadow rounded bg-light">
+                            <h1 className="mb-4">Start Counting</h1>
+                            <div
+                                className={`display-4 mb-4 ${time <= 10 ? 'text-danger animate__animated animate__flash' : ''}`}
+                            >
+                                {formatTime(time)}
+                            </div>
 
-                {/* Time setter inputs */}
-                <div className="d-flex justify-content-center mb-4">
-                    <div className="me-3">
-                        <input
-                            type="range"
-                            min="0"
-                            max="59"
-                            value={inputMinutes}
-                            onChange={handleMinutesSliderChange}
-                            className="form-range"
-                        />
-                        <div>{`Minutes: ${inputMinutes}`}</div>
+                            {/* Time setter inputs */}
+                            <div className="d-flex justify-content-center mb-4">
+                                <div className="me-3">
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max="59"
+                                        value={inputMinutes}
+                                        onChange={handleMinutesSliderChange}
+                                        className="form-range"
+                                    />
+                                    <div>{`Minutes: ${inputMinutes}`}</div>
+                                </div>
+
+                                <div>
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max="59"
+                                        value={inputSeconds}
+                                        onChange={handleSecondsSliderChange}
+                                        className="form-range"
+                                    />
+                                    <div>{`Seconds: ${inputSeconds}`}</div>
+                                </div>
+                            </div>
+
+                            <div className="btn-group" role="group">
+                                <button className="btn btn-success" onClick={handleStart} disabled={isRunning || time === 0}>
+                                    Start
+                                </button>
+                                <button className="btn btn-primary" onClick={handleStop} disabled={!isRunning}>
+                                    Pause
+                                </button>
+                                <button className="btn btn-danger" onClick={handleReset}>
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div>
-                        <input
-                            type="range"
-                            min="0"
-                            max="59"
-                            value={inputSeconds}
-                            onChange={handleSecondsSliderChange}
-                            className="form-range"
-                        />
-                        <div>{`Seconds: ${inputSeconds}`}</div>
-                    </div>
-                </div>
-
-                <div className="btn-group" role="group">
-                    <button className="btn btn-success" onClick={handleStart} disabled={isRunning || time === 0}>
-                        Start
-                    </button>
-                    <button className="btn btn-primary" onClick={handleStop} disabled={!isRunning}>
-                        Pause
-                    </button>
-                    <button className="btn btn-danger" onClick={handleReset}>
-                        Reset
-                    </button>
+                    <div className="col"></div>
                 </div>
             </div>
+
 
             {/* Modal for Time's Up message */}
             <div className={`modal fade ${showModal ? 'show d-block' : ''}`} tabIndex="-1" role="dialog" aria-hidden={!showModal}>
@@ -223,9 +232,9 @@ export default function Timer(props){
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" onClick={closeCloseModal}>Close</button>
-                            <button type="button" className="btn btn-primary" onClick={()=>{
+                            <button type="button" className="btn btn-primary" onClick={() => {
                                 console.log("Set Summary");
-                                
+
                                 props.setSummary('summary');
                                 setShowCloseModal(false);
                             }}>View Results</button>

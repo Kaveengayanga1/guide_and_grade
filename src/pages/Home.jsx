@@ -14,31 +14,35 @@ const Home = (props) => {
           <p className="lead">
             Revolutionize your presentations with real-time feedback and speech analysis. Master clarity, fluency, pacing, and engagement.
           </p>
-          <p className="lead mb-5">
+          <p className="lead">
             Whether you're preparing for a pitch, a presentation, or refining your speaking skills, Guide & Grade is here to help you succeed.
           </p>
           <a href="#features" className="btn btn-primary btn-lg mt-5 mb-3" onClick={() => {
-            <Analyze />
+            props.setPage('analyze');
           }}>Explore Features</a>
         </div>
       </div>
 
       {/* Example Features Section */}
-      <div id="features" className="row mt-3">
-        <div className="col-12 col-md-4 text-center mb-4">
-          <h3>Real-time Feedback</h3>
+      <div id="features" className="row mt-3 justify-content-center">
+        <div className="col-12 col-md-4 text-center mb-4 border rounded shadow">
+          <h3 className="mt-3 mb-3">Real-time Feedback</h3>
           <p>Get instant insights to improve your speaking skills.</p>
         </div>
-        <div className="col-12 col-md-4 text-center mb-4">
-          <h3>Speech Analysis</h3>
+        <div className="col-12 col-md-4 text-center mb-4 border rounded shadow">
+          <h3 className="mt-3 mb-3">Speech Analysis</h3>
           <p>Analyze your speech patterns to enhance clarity and pacing.</p>
         </div>
-        <div className="col-12 col-md-4 text-center mb-4">
-          <h3>Engagement Tracking</h3>
+        <div className="col-12 col-md-4 text-center mb-4 border rounded shadow">
+          <h3 className="mt-3 mb-3">Engagement Tracking</h3>
           <p>Measure your audience's engagement with your presentation.</p>
         </div>
       </div>
+
+
+
     </div>
+
   );
 };
 

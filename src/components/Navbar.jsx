@@ -6,7 +6,7 @@ const Navbar = (props) => {
   return (
     <BootstrapNavbar bg="light" expand="lg" fixed="top" className="w-100">
       <BootstrapNavbar.Brand href="#home" className="ms-3">
-        Guide and Grade
+        Guide & Grade
       </BootstrapNavbar.Brand>
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">

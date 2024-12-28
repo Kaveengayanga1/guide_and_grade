@@ -15,7 +15,7 @@ function App() {
     console.log(`${selectedMenuItem} page selected`);
     switch (selectedMenuItem) {
       case 'home': {
-        setComponent(<Home />);
+        setComponent(<Home setPage={pageRouterSetter}/>);
         break;
       }
       case 'summary': {
