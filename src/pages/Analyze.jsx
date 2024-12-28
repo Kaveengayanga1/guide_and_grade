@@ -26,7 +26,7 @@ const Analyze = (props) => {
         {/* Button */}
         <Col xs="auto">
           <Button variant="primary" size="lg" onClick={() =>{
-            props.setTimer('timer');
+            props.setPage('timer');
           }}>
             Start Analysis
           </Button>

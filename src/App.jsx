@@ -23,7 +23,7 @@ function App() {
         break;
       }
       case 'analyze': {
-        setComponent(<Analyze setTimer={pageRouterSetter}/>);
+        setComponent(<Analyze setPage={pageRouterSetter}/>);
         break;
       }
       case 'about': {
@@ -31,7 +31,7 @@ function App() {
         break;
       }
       case 'timer': {
-        setComponent(<Timer setSummary={pageRouterSetter}/>);
+        setComponent(<Timer setPage={pageRouterSetter}/>);
         break;
       }
       default: {

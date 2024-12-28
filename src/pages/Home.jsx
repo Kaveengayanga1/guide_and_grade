@@ -1,7 +1,7 @@
 import React from 'react';
-import Analyze from './Analyze';
 
 const Home = (props) => {
+
   return (
     <div
       className="container py-5 mt-5"
@@ -18,6 +18,8 @@ const Home = (props) => {
             Whether you're preparing for a pitch, a presentation, or refining your speaking skills, Guide & Grade is here to help you succeed.
           </p>
           <a href="#features" className="btn btn-primary btn-lg mt-5 mb-3" onClick={() => {
+            console.log("explore features");
+            
             props.setPage('analyze');
           }}>Explore Features</a>
         </div>

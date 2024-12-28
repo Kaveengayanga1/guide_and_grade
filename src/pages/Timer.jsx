@@ -235,7 +235,7 @@ export default function Timer(props) {
                             <button type="button" className="btn btn-primary" onClick={() => {
                                 console.log("Set Summary");
 
-                                props.setSummary('summary');
+                                props.setPage('summary');
                                 setShowCloseModal(false);
                             }}>View Results</button>
                         </div>
