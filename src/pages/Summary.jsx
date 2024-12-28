@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../components/card/Card';  // Assuming Card component is imported
 
-const Summary = () => {
+const Summary = (props) => {
     return (
         <div className="container py-4"
             data-aos='zoom-in'

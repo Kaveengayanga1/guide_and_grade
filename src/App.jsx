@@ -31,7 +31,7 @@ function App() {
         break;
       }
       case 'timer': {
-        setComponent(<Timer/>);
+        setComponent(<Timer setSummary={pageRouterSetter}/>);
         break;
       }
       default: {

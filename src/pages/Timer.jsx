@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css'; // Import animate.css for animations
 
 const host = "https://guide-and-grade-api.onrender.com";
-export default function Timer(){
+export default function Timer(props){
     async function setTimer() {
     
         const requestOptions = {
@@ -223,7 +223,12 @@ export default function Timer(){
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" onClick={closeCloseModal}>Close</button>
-                            <button type="button" className="btn btn-primary">View Results</button>
+                            <button type="button" className="btn btn-primary" onClick={()=>{
+                                console.log("Set Summary");
+                                
+                                props.setSummary('summary');
+                                setShowCloseModal(false);
+                            }}>View Results</button>
                         </div>
                     </div>
                 </div>
