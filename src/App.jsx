@@ -8,7 +8,7 @@ import Analyze from './pages/Analyze'
 import Timer from './pages/Timer'
 
 function App() {
-  const [component, setComponent] = useState(<Home/>);
+  const [component, setComponent] = useState(<Summary/>);
 
   // Function to change the page component
   function pageRouterSetter(selectedMenuItem) {
@@ -46,6 +46,7 @@ function App() {
     <div>
       <Navbar getPageForRouting={pageRouterSetter} />
       {component}
+      
       {/* <h1>Hello There. Test app running here!</h1> */}
 
 

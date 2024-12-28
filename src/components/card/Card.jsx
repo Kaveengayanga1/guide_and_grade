@@ -35,6 +35,7 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
         border: `3px solid ${borderColor}`,
         borderRadius: '15px',
         padding: '20px',
+        backgroundColor: 'white',
     };
 
     const textStyle = {
@@ -43,11 +44,12 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
         left: '50%',
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
-        fontSize: '1.5rem',
+        fontSize: '1.3rem',
+        
     };
 
     return (
-        <div style={containerStyle}>
+        <div style={containerStyle} className='border rounded shadow'>
             <svg height={size * 2} width={size * 2} style={svgStyle}>
                 <circle
                     cx={size}
