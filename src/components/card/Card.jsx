@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf50', size = 100 }) => {
     const stroke = 15;
@@ -22,10 +23,17 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
         fill: 'transparent',
         strokeWidth: stroke,
         strokeDasharray: circumference,
-        strokeDashoffset: strokeDashoffset,
-        transition: 'stroke-dashoffset 0.35s',
+        strokeDashoffset: circumference, // Start with full offset
+        transition: 'stroke-dashoffset 1s ease-in-out', // Add transition for animation
         transformOrigin: '50% 50%',
     };
+
+    useEffect(() => {
+        const circle = document.querySelector(`#circle-${name}`);
+        if (circle) {
+            circle.style.strokeDashoffset = strokeDashoffset; // Animate to the target offset
+        }
+    }, [strokeDashoffset, name]);
 
     const containerStyle = {
         position: 'relative',
@@ -35,7 +43,8 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
         border: `3px solid ${borderColor}`,
         borderRadius: '15px',
         padding: '20px',
-        backgroundColor: 'white',
+        boxSizing: 'border-box',
+        backgroundColor: '#f8f9fa',
     };
 
     const textStyle = {
@@ -44,8 +53,7 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
         left: '50%',
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
-        fontSize: '1.3rem',
-        
+        fontSize: '1.2rem',
     };
 
     return (
@@ -58,6 +66,7 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
                     style={circleBgStyle}
                 />
                 <circle
+                    id={`circle-${name}`} // Add unique ID for each circle
                     cx={size}
                     cy={size}
                     r={normalizedRadius}
@@ -67,7 +76,7 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
             </svg>
             <div style={textStyle}>
                 <strong>{progress}%</strong>
-                <p>{name}</p>
+                <p style={{ fontSize: '1.2rem' }}>{name}</p> {/* Reduced font size */}
             </div>
         </div>
     );

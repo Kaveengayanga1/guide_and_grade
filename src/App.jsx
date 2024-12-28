@@ -8,7 +8,7 @@ import Analyze from './pages/Analyze'
 import Timer from './pages/Timer'
 
 function App() {
-  const [component, setComponent] = useState(<Summary/>);
+  const [component, setComponent] = useState(<Home/>);
 
   // Function to change the page component
   function pageRouterSetter(selectedMenuItem) {
