@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css'; // Import animate.css for animations
 
-// const host = "https://guide-and-grade-api.onrender.com";
-const host = "http://localhost:5000";
+const host = "https://guide-and-grade-api.onrender.com";
+// const host = "http://localhost:5000";
 export default function Timer(props){
     async function setTimer() {
 
@@ -25,7 +25,7 @@ export default function Timer(props){
                 body: "{}",
             };
             fetch(
-                "https://guide-and-grade-api.onrender.com/stopTimer",
+                host+"/stopTimer",
                 requestOptions
             );
         } else {
@@ -36,7 +36,7 @@ export default function Timer(props){
                 body: "{}",
             };
             fetch(
-                "https://guide-and-grade-api.onrender.com/startTimer",
+                host+"/startTimer",
                 requestOptions
             );
         }
@@ -48,7 +48,7 @@ export default function Timer(props){
             body: "{}",
         };
         fetch(
-            "https://guide-and-grade-api.onrender.com/resetTimer",
+            host+"/resetTimer",
             requestOptions
         );
     }
