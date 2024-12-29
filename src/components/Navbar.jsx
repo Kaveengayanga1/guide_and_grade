@@ -13,8 +13,9 @@ const Navbar = (props) => {
         <Nav className="ms-auto">
           <Nav.Link href="#home" onClick={() => props.getPageForRouting('home')}>Home</Nav.Link>
           {/* <Nav.Link href="#summary" onClick={() => props.getPageForRouting('summary')}>Summary</Nav.Link> */}
-          <Nav.Link href="#analyze" onClick={() => props.getPageForRouting('analyze')}>Analyze</Nav.Link>
           <Nav.Link href="#about" onClick={() => props.getPageForRouting('about')}>About</Nav.Link>
+          <Nav.Link href="#analyze" onClick={() => props.getPageForRouting('analyze')}>Analyze</Nav.Link>
+          
         </Nav>
       </BootstrapNavbar.Collapse>
     </BootstrapNavbar>

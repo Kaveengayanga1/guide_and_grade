@@ -145,7 +145,8 @@ export default function Timer(props) {
     };
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="d-flex justify-content-center align-items-center vh-100"
+        >
             <div className="container">
                 <div className="row">
                     <div className="col"></div>
