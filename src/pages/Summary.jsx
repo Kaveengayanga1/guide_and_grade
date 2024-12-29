@@ -2,37 +2,52 @@ import React from 'react';
 import Card from '../components/card/Card';  // Assuming Card component is imported
 
 const Summary = (props) => {
+
+    
+
     return (
         <div className="container py-4"
-            data-aos='zoom-in'
-            data-aos-delay="400"
+            //data-aos='zoom-in'
+            //data-aos-delay="400"
         >
-            <h1 className="mt-5 mb-5">Summary</h1>
+            <h1 className="mt-5 mb-3" data-aos="zoom-in" data-aos-duration="1000">Evaluation Result</h1>
 
             {/* Insights */}
-            <div className="container py-4">
+            {/*Card container*/}
+            <div className="container">
                 <div className="row">
-                    {/* Left Container with Larger Card */}
-                    <div className="col-12 col-md-6 mb-4">
-                        <Card name="Overall" progress={75} borderColor="#ff6347" progressColor="#ff6347" size={150} />
+                    <div className="col" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1250">
+                        <Card name="Overall" progress={38} borderColor="white" progressColor="blue" size={75} />
                     </div>
+                    <div className="col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1250">
+                        <Card name="Grammar" progress={45} borderColor="blue" progressColor="#0cf566" size={75} />
+                    </div>
+                    <div className="col" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1250">
+                        <Card name="Pacing" progress={65} borderColor="blue" progressColor="#ffd819" size={75} />
+                    </div>
+                    <div className="col" data-aos="fade-up" data-aos-delay="800" data-aos-duration="1250">
+                        <Card name="Coherence" progress={55} borderColor="blue" progressColor="#5a189a" size={75} />
+                    </div>
+                </div>
+            </div>
 
-                    {/* Right Container for 2x2 Grid of Smaller Cards */}
-                    <div className="col-12 col-md-6">
-                        <div className="row">
-                            <div className="col-12 col-sm-6 mb-4">
-                                <Card name="Clarity" progress={60} borderColor="#1e90ff" progressColor="#1e90ff" size={60} />
-                            </div>
-                            <div className="col-12 col-sm-6 mb-4">
-                                <Card name="Fluency" progress={50} borderColor="#ffcc00" progressColor="#ffcc00" size={60} />
-                            </div>
-                            <div className="col-12 col-sm-6 mb-4">
-                                <Card name="Pacing" progress={80} borderColor="#32cd32" progressColor="#32cd32" size={60} />
-                            </div>
-                            <div className="col-12 col-sm-6 mb-4">
-                                <Card name="Coherence" progress={90} borderColor="#ff1493" progressColor="#ff1493" size={60} />
-                            </div>
+            {/* Text and suggestions container */}
+            <div className="container">
+                <div className="row mt-5">
+                    <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">
+                        <h3>Transcript</h3>
+                        <div className=" p-3 overflow-auto shadow" style={{ maxHeight: '175px', maxWidth: '100%' }}>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
                         </div>
+                    </div>
+                    <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">
+                        <h3>Suggestions</h3>
+                        <p>Some suggestions here</p>
                     </div>
                 </div>
             </div>

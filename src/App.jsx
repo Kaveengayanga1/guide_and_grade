@@ -15,7 +15,7 @@ function App() {
     console.log(`${selectedMenuItem} page selected`);
     switch (selectedMenuItem) {
       case 'home': {
-        setComponent(<Home />);
+        setComponent(<Home setPage={pageRouterSetter}/>);
         break;
       }
       case 'summary': {
@@ -23,7 +23,7 @@ function App() {
         break;
       }
       case 'analyze': {
-        setComponent(<Analyze setTimer={pageRouterSetter}/>);
+        setComponent(<Analyze setPage={pageRouterSetter}/>);
         break;
       }
       case 'about': {
@@ -31,7 +31,7 @@ function App() {
         break;
       }
       case 'timer': {
-        setComponent(<Timer setSummary={pageRouterSetter}/>);
+        setComponent(<Timer setPage={pageRouterSetter}/>);
         break;
       }
       default: {
@@ -46,6 +46,7 @@ function App() {
     <div>
       <Navbar getPageForRouting={pageRouterSetter} />
       {component}
+      
       {/* <h1>Hello There. Test app running here!</h1> */}
 
 

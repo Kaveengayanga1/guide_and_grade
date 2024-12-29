@@ -4,10 +4,18 @@ const About = () => {
   return (
     <div className="container py-5"
       data-aos='zooms-in'
-      data-aos-delay="200"
+      data-aos-duration="1000"
     >
-      <h1 className="mt-5 mb-4">About Guide & Grade</h1>
-      <div className="row">
+      <h1 className="mt-5 mb-4"
+        data-aos="fade-up"
+        data-aos-delay="600"
+        data-aos-duration="1000"
+      >About Guide & Grade</h1>
+      <div className="row"
+        data-aos="fade-up"
+        data-aos-delay="800"
+        data-aos-duration="1800"
+      >
         <div className="col-12">
           <p className="lead">
             Welcome to Guide & Grade, where innovation meets effective communication! Our platform is designed to guide you on improving your presentation skills by grading your presentations. Using cutting-edge speech analysis technology, we provide real-time feedback and accurate grading to help you master clarity, fluency, pacing, and engagement.
