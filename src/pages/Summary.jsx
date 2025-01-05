@@ -1,7 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../components/card/Card';  // Assuming Card component is imported
 
+const host = "https://guide-and-grade-api.onrender.com";
+// const host = "http://localhost:5000";
 const Summary = (props) => {
+    const [status, setStatus] = useState("processing");
+    const [transcript, setTranscript] = useState("Loading...");
+    
+
+    useEffect(() => {
+        const eventSource = new EventSource(
+          host+"/get-status"
+        );
+        if (typeof eventSource != undefined) {
+          console.log("Connection with status successful");
+          eventSource.onmessage = (event) => {
+            const eventData = JSON.parse(event.data);
+            
+            setStatus((prevStatus) => {
+                console.log(prevStatus);
+                if (eventData.status === "completed") {
+                    console.log("Getting transcript");
+                    getTranscript();
+                    eventSource.close();
+                }
+                return eventData.status;
+            });
+          };
+        } else {
+          console.log("Coudn't connect to status");
+        }
+        return () => eventSource.close();
+      }, []);
+    const getTranscript = async () => {
+        const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        };
+        fetch(host+"/get-transcription", requestOptions)
+              .then((response) => response.json())
+              .then((json) => {
+                console.log(json);
+                setTranscript(json.transcript);
+            });
+    }
 
     
 
@@ -37,12 +79,7 @@ const Summary = (props) => {
                     <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">
                         <h3>Transcript</h3>
                         <div className=" p-3 overflow-auto shadow" style={{ maxHeight: '175px', maxWidth: '100%' }}>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
+                            <p id='transcript'>{transcript}</p>
                         </div>
                     </div>
                     <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">

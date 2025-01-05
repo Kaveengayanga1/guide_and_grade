@@ -55,6 +55,8 @@ export default function Timer(props){
     };
 
     const generateReport = async () => {
+        setShowCloseModal(true);
+        // make post request to /generateReport endpoint
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -64,7 +66,6 @@ export default function Timer(props){
             host+"/generateReport",
             requestOptions
         );
-        setShowCloseModal(true);
     }
     const handleStartStop = async () => {
         if (start) {
