@@ -16,31 +16,7 @@ export default function Timer(props){
         };
         fetch(host + "/setStartTime", requestOptions);
     }
-    function handleStartStop() {
-        if (start) {
-            setStart(false);
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: "{}",
-            };
-            fetch(
-                host+"/stopTimer",
-                requestOptions
-            );
-        } else {
-            setStart(true);
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: "{}",
-            };
-            fetch(
-                host+"/startTimer",
-                requestOptions
-            );
-        }
-    }
+
     function resetTimer() {
         const requestOptions = {
             method: "PUT",
@@ -68,7 +44,6 @@ export default function Timer(props){
             }, 1000);
         } else if (time === 0 && isRunning) {
             setIsRunning(false);
-            setShowModal(true); // Show modal when time reaches 0
         }
         return () => clearInterval(timer);
     }, [isRunning, time]);
@@ -79,19 +54,50 @@ export default function Timer(props){
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
-    const handleStart = async () => {
-        if (time > 0) {
+    const generateReport = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: "{}",
+        };
+        fetch(
+            host+"/generateReport",
+            requestOptions
+        );
+        setShowCloseModal(true);
+    }
+    const handleStartStop = async () => {
+        if (start) {
+            setStart(false);
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: "{}",
+            };
+            fetch(
+                host+"/stopTimer",
+                requestOptions
+            );
+        } else {
+            setStart(true);
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: "{}",
+            };
+            fetch(
+                host+"/startTimer",
+                requestOptions
+            );
+        }
+        if(isRunning){
+            setIsRunning(false);
+        }else{
             await setTimer();
-            handleStartStop();
             setIsRunning(true);
             setInputSeconds(0);
             setInputMinutes(0);
         }
-    };
-
-    const handleStop = () => {
-        handleStartStop();
-        setIsRunning(false);
     };
 
     const handleReset = () => {
@@ -188,14 +194,17 @@ export default function Timer(props){
                             </div>
 
                             <div className="btn-group" role="group">
-                                <button className="btn btn-success" onClick={handleStart} disabled={isRunning || time === 0}>
-                                    Start
+                                <button className="btn btn-success" onClick={handleStartStop} >
+                                    {isRunning ? 'Pause' : 'Start'}
                                 </button>
-                                <button className="btn btn-primary" onClick={handleStop} disabled={!isRunning}>
-                                    Pause
+                                
+                                <button className="btn btn-primary" onClick={generateReport} disabled={isRunning || time === 0}>
+                                    Generate Report
                                 </button>
+                            </div>
+                            <div className="btn-group" role="group">
                                 <button className="btn btn-danger" onClick={handleReset}>
-                                    Reset
+                                        Reset
                                 </button>
                             </div>
                         </div>
@@ -205,22 +214,6 @@ export default function Timer(props){
             </div>
 
 
-            {/* Modal for Time's Up message */}
-            <div className={`modal fade ${showModal ? 'show d-block' : ''}`} tabIndex="-1" role="dialog" aria-hidden={!showModal}>
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Time's Up!</h5>
-                        </div>
-                        <div className="modal-body">
-                            <p>The timer has reached zero. Presentation time is up!</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* Modal for Close button clicked */}
             <div className={`modal fade ${showCloseModal ? 'show d-block' : ''}`} tabIndex="-1" role="dialog" aria-hidden={!showCloseModal}>
