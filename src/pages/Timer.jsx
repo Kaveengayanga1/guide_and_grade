@@ -203,7 +203,7 @@ export default function Timer(props) {
                                 </div>
                                 <div className="div">
                                     <button className="btn btn-primary mx-1" onClick={generateReport} disabled={isRunning || time === 0}>
-                                        Summarize
+                                        Generate Report
                                     </button>
                                 </div>
                                 <div className="div">
