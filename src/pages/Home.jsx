@@ -9,7 +9,7 @@ const Home = (props) => {
       data-aos='zoom-in'
       data-aos-duration='500'
       style={{
-        backgroundImage: `url(${image})`,
+        // backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

@@ -4,7 +4,7 @@ import 'animate.css'; // Import animate.css for animations
 
 const host = "https://guide-and-grade-api.onrender.com";
 // const host = "http://localhost:5000";
-export default function Timer(props){
+export default function Timer(props) {
     async function setTimer() {
 
         const requestOptions = {
@@ -24,7 +24,7 @@ export default function Timer(props){
             body: "{}",
         };
         fetch(
-            host+"/resetTimer",
+            host + "/resetTimer",
             requestOptions
         );
     }
@@ -63,7 +63,7 @@ export default function Timer(props){
             body: "{}",
         };
         fetch(
-            host+"/generateReport",
+            host + "/generateReport",
             requestOptions
         );
     }
@@ -76,7 +76,7 @@ export default function Timer(props){
                 body: "{}",
             };
             fetch(
-                host+"/stopTimer",
+                host + "/stopTimer",
                 requestOptions
             );
         } else {
@@ -87,13 +87,13 @@ export default function Timer(props){
                 body: "{}",
             };
             fetch(
-                host+"/startTimer",
+                host + "/startTimer",
                 requestOptions
             );
         }
-        if(isRunning){
+        if (isRunning) {
             setIsRunning(false);
-        }else{
+        } else {
             await setTimer();
             setIsRunning(true);
             setInputSeconds(0);
@@ -195,18 +195,29 @@ export default function Timer(props){
                             </div>
 
                             <div className="btn-group" role="group">
-                                <button className="btn btn-success" onClick={handleStartStop} >
-                                    {isRunning ? 'Pause' : 'Start'}
-                                </button>
-                                
-                                <button className="btn btn-primary" onClick={generateReport} disabled={isRunning || time === 0}>
-                                    Generate Report
-                                </button>
+
+                                <div className="div">
+                                    <button className="btn btn-primary mx-1" onClick={handleStartStop} >
+                                        {isRunning ? 'Pause' : 'Start'}
+                                    </button>
+                                </div>
+                                <div className="div">
+                                    <button className="btn btn-primary mx-1" onClick={generateReport} disabled={isRunning || time === 0}>
+                                        Summarize
+                                    </button>
+                                </div>
+                                <div className="div">
+                                    <button className="btn btn-danger mx-1" onClick={handleReset}>
+                                        Reset
+                                    </button>
+                                </div>
+
+
+
+
                             </div>
                             <div className="btn-group" role="group">
-                                <button className="btn btn-danger" onClick={handleReset}>
-                                        Reset
-                                </button>
+
                             </div>
                         </div>
                     </div>
