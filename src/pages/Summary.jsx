@@ -5,7 +5,8 @@ const host = "https://guide-and-grade-api.onrender.com";
 // const host = "http://localhost:5000";
 const Summary = (props) => {
     const [status, setStatus] = useState("processing");
-    const [transcript, setTranscript] = useState("Loading...");
+    const [transcript, setTranscript] = useState("Your Transcript is here...");
+    const [suggetions, setSuggetions] = useState("Suggetions are here...");
     
 
     useEffect(() => {
@@ -84,7 +85,7 @@ const Summary = (props) => {
                     </div>
                     <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">
                         <h3>Suggestions</h3>
-                        <p>Some suggestions here</p>
+                        <p>{suggetions}</p>
                     </div>
                 </div>
             </div>

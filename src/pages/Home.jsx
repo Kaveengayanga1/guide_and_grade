@@ -12,9 +12,9 @@ const Home = (props) => {
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat", // Prevents tiling
-        height: "100vh", // Full viewport height
-        width: "100vw", // Full viewport width
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+        width: "100vw",
       }}
 
     >
