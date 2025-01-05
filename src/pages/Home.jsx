@@ -1,13 +1,25 @@
 import React from 'react';
-
+import image from '../assets/bg.jpg';
 const Home = (props) => {
 
   return (
+
     <div
-      className="container py-5 mt-5"
+      className="container py-5 mt-5 bg-image"
       data-aos='zoom-in'
       data-aos-duration='500'
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat", // Prevents tiling
+        height: "100vh", // Full viewport height
+        width: "100vw", // Full viewport width
+      }}
+
     >
+
+
       <div className="row">
         <div className="col-12 text-center">
           <h1 className="display-4 mb-4"
@@ -15,6 +27,7 @@ const Home = (props) => {
             data-aos-delay="400"
             data-aos-duration="1000"
           >Welcome to Guide & Grade</h1>
+
           <p className="lead"
             data-aos="fade-up"
             data-aos-delay="400"
