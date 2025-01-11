@@ -6,7 +6,7 @@ const About = () => {
       data-aos='zooms-in'
       data-aos-duration="1000"
     >
-      <h1 className="mt-5 mb-4"
+      <h1 className="mt-5 mb-4 d-flex justify-content-center"
         data-aos="fade-up"
         data-aos-delay="600"
         data-aos-duration="1000"

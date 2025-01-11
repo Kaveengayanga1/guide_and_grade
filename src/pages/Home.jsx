@@ -13,7 +13,7 @@ const Home = (props) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        height: "100vh",
+        height: "90vh",
         width: "100vw",
       }}
 
