@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/card/Card';  // Assuming Card component is imported
 import '../Summary.css'
-//const host = "https://guide-and-grade-api.onrender.com";
-const host = "http://localhost:5000";
+const host = "https://guide-and-grade-api.onrender.com";
+//const host = "http://localhost:5000";
 const Summary = (props) => {
     const [status1, setStatus1] = useState("processing");
     const [status2, setStatus2] = useState("processing");
