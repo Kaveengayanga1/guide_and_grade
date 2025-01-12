@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/card/Card';  // Assuming Card component is imported
 import '../Summary.css'
-const host = "https://guide-and-grade-api.onrender.com";
-//const host = "http://localhost:5000";
+//const host = "https://guide-and-grade-api.onrender.com";
+const host = "http://localhost:5000";
 const Summary = (props) => {
     const [status1, setStatus1] = useState("processing");
     const [status2, setStatus2] = useState("processing");
@@ -26,9 +26,9 @@ const Summary = (props) => {
                 }
                 return eventData.status1;
             });
-            setStatus2((prevStatus) => {
-                console.log(prevStatus);
-                if (prevStatus!= "completed" && eventData.status2 == "completed") {
+            setStatus2((prevStatus2) => {
+                console.log(prevStatus2);
+                if (prevStatus2!= "completed" && eventData.status2 == "completed") {
                     console.log("Getting report");
                     getReport();
                 }
@@ -75,10 +75,10 @@ const Summary = (props) => {
 
             <div className="card-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
                 <div className="row transcript-container">
-                    <div className="col mt-5">
+                    <div className="col-4 mt-5">
                         <Card name="Overall" progress={report && report.engagement && ((report.engagement.score+report.content.score+report.structure.score+report.delivery.score+report.accuracy.score)/5)} borderColor="white" progressColor="blue" size={75} />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div>
                             <h3>Transcript</h3>
                             <div className="transcript-content">
@@ -89,10 +89,10 @@ const Summary = (props) => {
                 </div>
                 <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
                     <h3>Content</h3>
-                    <div className="col mt-3">
+                    <div className="col-4 mt-3">
                         <Card name="Content" progress={report && report.content && (report.content.score)} borderColor="blue" progressColor="#0cf566" size={75} />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div >
                             
                             <div className="transcript-content">
@@ -111,10 +111,10 @@ const Summary = (props) => {
                 </div>
                 <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
                     <h3>Engagement</h3>
-                    <div className="col mt-3">
-                        <Card name="Engagement" progress={report && report.engagement && (report.engagement.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    <div className="col-4 mt-3">
+                        <Card name="Engagement" progress={report && report.engagement && (report.engagement.score)} borderColor="blue" progressColor="orange" size={75} />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div >
                             <div className="transcript-content">
                             {report && report.engagement && (
@@ -130,10 +130,10 @@ const Summary = (props) => {
                 </div>
                 <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
                     <h3>Accuracy</h3>
-                    <div className="col mt-3">
-                        <Card name="Accuracy" progress={report && report.accuracy && (report.accuracy.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    <div className="col-4 mt-3">
+                        <Card name="Accuracy" progress={report && report.accuracy && (report.accuracy.score)} borderColor="blue" progressColor="purple" size={75} />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div >
                             
                             <div className="transcript-content">
@@ -149,10 +149,10 @@ const Summary = (props) => {
                 </div>
                 <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
                     <h3>Structure</h3>
-                    <div className="col mt-3">
-                        <Card name="Structure" progress={report && report.structure && (report.structure.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    <div className="col-4 mt-3">
+                        <Card name="Structure" progress={report && report.structure && (report.structure.score)} borderColor="blue" progressColor="green" size={75} />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div >
                             
                             <div className="transcript-content">
@@ -169,10 +169,10 @@ const Summary = (props) => {
                 </div>
                 <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
                     <h3>Delivery</h3>
-                    <div className="col mt-3">
-                        <Card name="Delivery" progress={report && report.delivery && (report.delivery.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    <div className="col-4 mt-3">
+                        <Card name="Delivery" progress={report && report.delivery && (report.delivery.score)} borderColor="blue" progressColor="brown" size={75} />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div >
                             
                             <div className="transcript-content">
