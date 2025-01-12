@@ -7,14 +7,30 @@ const host = "http://localhost:5000";
 export default function Timer(props){
     async function setTimer() {
 
-        const requestOptions = {
+        const requestOptions1 = {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                startTime: time,
+                stopTime: totalTime
             }),
         };
-        fetch(host + "/setStartTime", requestOptions);
+        fetch(host + "/setStopTime", requestOptions1);
+        const requestOptions2 = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                warnTime: warningTime
+            }),
+        };
+        fetch(host + "/setWarnTime", requestOptions2);
+        const requestOptions3 = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                startTime: 0
+            }),
+        };
+        fetch(host + "/setStartTime", requestOptions3);
     }
 
     function resetTimer() {
@@ -30,27 +46,35 @@ export default function Timer(props){
     }
     const [start, setStart] = useState(false);
     const [time, setTime] = useState(0);
-    const [inputMinutes, setInputMinutes] = useState(0);
-    const [inputSeconds, setInputSeconds] = useState(0);
+    const [totalTime, settotalTime] = useState(0);
+    const [warningTime, setwarningTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
-    const [showModal, setShowModal] = useState(false); // Time's Up modal
     const [showCloseModal, setShowCloseModal] = useState(false); // Close button modal
 
     useEffect(() => {
-        let timer;
-        if (isRunning && time > 0) {
-            timer = setInterval(() => {
-                setTime((prevTime) => prevTime - 1);
-            }, 1000);
-        } else if (time === 0 && isRunning) {
-            setIsRunning(false);
+        AOS.init({ once: true });
+        const eventSource = new EventSource(
+          host+"/timer"
+        );
+        if (typeof eventSource != undefined) {
+          console.log("Connection with timer successful");
+          let oldVal = -1;
+          eventSource.onmessage = (event) => {
+            const eventData = JSON.parse(event.data);
+            console.log(eventData);
+            setTime(eventData.time);
+            
+          };
+        } else {
+          console.log("Coudn't connect to timer");
         }
-        return () => clearInterval(timer);
-    }, [isRunning, time]);
+        return () => eventSource.close();
+      }, []);
+    
 
     const formatTime = (seconds) => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
+        const mins = Math.floor(time / 60);
+        const secs = time % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
@@ -91,65 +115,30 @@ export default function Timer(props){
                 requestOptions
             );
         }
-        if (isRunning) {
-            setIsRunning(false);
-        } else {
-            await setTimer();
+        if (!isRunning) {
             setIsRunning(true);
-            setInputSeconds(0);
-            setInputMinutes(0);
         }
     };
 
-    const handleReset = () => {
-        setTime(inputMinutes * 60 + inputSeconds);
+    const handleReset = async () => {
+        await setTimer();
+        setTime(0);
         setIsRunning(false);
-        resetTimer();
-        setInputSeconds(0);
-        setInputMinutes(0);
     };
 
-    const handleMinutesChange = (e) => {
-        const newMinutes = parseInt(e.target.value, 10) || 0;
-        setInputMinutes(newMinutes);
-        setTime(newMinutes * 60 + inputSeconds);
+    const handleTotalTimeChange = (e) => {
+        const tt = parseInt(e.target.value, 10) || 0;
+        settotalTime(tt);
     };
 
-    const handleSecondsChange = (e) => {
-        const newSeconds = parseInt(e.target.value, 10) || 0;
-        setInputSeconds(newSeconds);
-        setTime(inputMinutes * 60 + newSeconds);
-    };
-
-    const handleSetTime = () => {
-        setTime(inputMinutes * 60 + inputSeconds);
-        setIsRunning(false);
-        setInputSeconds(0);
-        setInputMinutes(0);
-    };
-
-    // Close "Time's Up" modal and show "Close Button Clicked" modal
-    const closeModal = () => {
-        setShowModal(false);
-        setShowCloseModal(true);
+    const handleWarningTimeChange = (e) => {
+        const wt = parseInt(e.target.value, 10) || 0;
+        setwarningTime(wt);
     };
 
     // Close "Close Button Clicked" modal
     const closeCloseModal = () => {
         setShowCloseModal(false);
-    };
-
-    // Handlers for range slider
-    const handleMinutesSliderChange = (e) => {
-        const minutes = parseInt(e.target.value, 10);
-        setInputMinutes(minutes);
-        setTime(minutes * 60 + inputSeconds);
-    };
-
-    const handleSecondsSliderChange = (e) => {
-        const seconds = parseInt(e.target.value, 10);
-        setInputSeconds(seconds);
-        setTime(inputMinutes * 60 + seconds);
     };
 
     return (
@@ -160,54 +149,41 @@ export default function Timer(props){
                     <div className="col"></div>
                     <div className="col-5 " data-aos='zoom-in' data-aos-delay="400" data-aos-duration="1000">
                         <div className="container text-center p-4 shadow rounded bg-light">
-                            <h1 className="mb-4">Start Counting</h1>
+                            <h1 className="mb-4">Timer</h1>
                             <div
-                                className={`display-4 mb-4 ${time <= 10 ? 'text-danger animate__animated animate__flash' : ''}`}
+                                className={`display-4 mb-4 ${time >= warningTime ? 'text-danger animate__animated animate__flash' : ''}`}
                             >
                                 {formatTime(time)}
                             </div>
 
                             {/* Time setter inputs */}
-                            <div className="d-flex justify-content-center mb-4">
-                                <div className="me-3">
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max="59"
-                                        value={inputMinutes}
-                                        onChange={handleMinutesSliderChange}
-                                        className="form-range"
-                                    />
-                                    <div>{`Minutes: ${inputMinutes}`}</div>
-                                </div>
-
-                                <div>
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max="59"
-                                        value={inputSeconds}
-                                        onChange={handleSecondsSliderChange}
-                                        className="form-range"
-                                    />
-                                    <div>{`Seconds: ${inputSeconds}`}</div>
-                                </div>
-                            </div>
-
+                            
                             <div className="btn-group" role="group">
 
                                 <div className="div">
+                                    Total Time:
+                                    <input type='text' className='form-control' value={totalTime} onChange={handleTotalTimeChange} />
+                                </div>
+                                <div className="div">
+                                    Warning Time:
+                                    <input type='text' className='form-control' value={warningTime} onChange={handleWarningTimeChange} />
+                                </div>
+
+                            </div>
+                            <div className="btn-group mt-3" role="group">
+
+                                <div className="div">
                                     <button className="btn btn-primary mx-1" onClick={handleStartStop} >
-                                        {isRunning ? 'Pause' : 'Start'}
+                                        {start ? 'Pause' : 'Start'}
                                     </button>
                                 </div>
                                 <div className="div">
-                                    <button className="btn btn-primary mx-1" onClick={generateReport} disabled={isRunning || time === 0}>
+                                    <button className="btn btn-primary mx-1" onClick={generateReport} disabled={start || time === 0}>
                                         Generate Report
                                     </button>
                                 </div>
                                 <div className="div">
-                                    <button className="btn btn-danger mx-1" onClick={handleReset}>
+                                    <button className="btn btn-danger mx-1" onClick={handleReset} disabled={start || time === 0}>
                                         Reset
                                     </button>
                                 </div>
