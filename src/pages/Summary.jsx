@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/card/Card';  // Assuming Card component is imported
-
-const host = "https://guide-and-grade-api.onrender.com";
-// const host = "http://localhost:5000";
+import '../Summary.css'
+//const host = "https://guide-and-grade-api.onrender.com";
+const host = "http://localhost:5000";
 const Summary = (props) => {
-    const [status, setStatus] = useState("processing");
+    const [status1, setStatus1] = useState("processing");
+    const [status2, setStatus2] = useState("processing");
     const [transcript, setTranscript] = useState("Loading...");
-    
+    const [report, setReport] = useState({});
 
     useEffect(() => {
         const eventSource = new EventSource(
@@ -17,15 +18,24 @@ const Summary = (props) => {
           eventSource.onmessage = (event) => {
             const eventData = JSON.parse(event.data);
             
-            setStatus((prevStatus) => {
+            setStatus1((prevStatus) => {
                 console.log(prevStatus);
-                if (eventData.status === "completed") {
+                if (prevStatus!= "completed" && eventData.status1 == "completed") {
                     console.log("Getting transcript");
                     getTranscript();
-                    eventSource.close();
                 }
-                return eventData.status;
+                return eventData.status1;
             });
+            setStatus2((prevStatus) => {
+                console.log(prevStatus);
+                if (prevStatus!= "completed" && eventData.status2 == "completed") {
+                    console.log("Getting report");
+                    getReport();
+                }
+                return eventData.status1;
+            });
+
+
           };
         } else {
           console.log("Coudn't connect to status");
@@ -43,52 +53,141 @@ const Summary = (props) => {
                 console.log(json);
                 setTranscript(json.transcript);
             });
+
+    }
+    const getReport = async () => {
+        const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        };
+        fetch(host+"/get-report", requestOptions)
+              .then((response) => response.json())
+              .then((json) => {
+                console.log(json);
+                setReport(json);
+            });
+            
     }
 
-    
-
     return (
-        <div className="container py-4"
-            //data-aos='zoom-in'
-            //data-aos-delay="400"
-        >
-            <h1 className="mt-5 mb-3" data-aos="zoom-in" data-aos-duration="1000">Evaluation Result</h1>
+        <div className="summary-container">
+            <h1 className="title" data-aos="zoom-in" data-aos-duration="1000">Evaluation Results</h1>
 
-            {/* Insights */}
-            {/*Card container*/}
-            <div className="container">
-                <div className="row">
-                    <div className="col" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1250">
-                        <Card name="Overall" progress={38} borderColor="white" progressColor="blue" size={75} />
+            <div className="card-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+                <div className="row transcript-container">
+                    <div className="col mt-5">
+                        <Card name="Overall" progress={report && report.engagement && ((report.engagement.score+report.content.score+report.structure.score+report.delivery.score+report.accuracy.score)/5)} borderColor="white" progressColor="blue" size={75} />
                     </div>
-                    <div className="col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1250">
-                        <Card name="Grammar" progress={45} borderColor="blue" progressColor="#0cf566" size={75} />
+                    <div className="col">
+                        <div>
+                            <h3>Transcript</h3>
+                            <div className="transcript-content">
+                                <p id='transcript'>{transcript}</p>
+                            </div>
+                        </div>   
                     </div>
-                    <div className="col" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1250">
-                        <Card name="Pacing" progress={65} borderColor="blue" progressColor="#ffd819" size={75} />
+                </div>
+                <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+                    <h3>Content</h3>
+                    <div className="col mt-3">
+                        <Card name="Content" progress={report && report.content && (report.content.score)} borderColor="blue" progressColor="#0cf566" size={75} />
                     </div>
-                    <div className="col" data-aos="fade-up" data-aos-delay="800" data-aos-duration="1250">
-                        <Card name="Coherence" progress={55} borderColor="blue" progressColor="#5a189a" size={75} />
+                    <div className="col">
+                        <div >
+                            
+                            <div className="transcript-content">
+                                {report && report.content && (
+                                    <>
+                                        <p>Clarity: {report.content.clarity}</p>
+                                        <p>Relevance: {report.content.relevance}</p>
+                                        <p>Depth: {report.content.depth}</p>
+                                        <p>Originality: {report.content.originality}</p>
+                                    </>
+                                )}
+                                
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+                    <h3>Engagement</h3>
+                    <div className="col mt-3">
+                        <Card name="Engagement" progress={report && report.engagement && (report.engagement.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    </div>
+                    <div className="col">
+                        <div >
+                            <div className="transcript-content">
+                            {report && report.engagement && (
+                                    <>
+                                        <p>Relatability: {report.engagement.relatability}</p>
+                                        <p>CallToAction: {report.engagement.callToAction}</p>
+                                        <p>Stroytelling: {report.engagement.storytelling}</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+                    <h3>Accuracy</h3>
+                    <div className="col mt-3">
+                        <Card name="Accuracy" progress={report && report.accuracy && (report.accuracy.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    </div>
+                    <div className="col">
+                        <div >
+                            
+                            <div className="transcript-content">
+                            {report && report.accuracy && (
+                                    <>
+                                        <p>Grammar and syntax: {report.accuracy.grammarAndSyntax}</p>
+                                        <p>Factual accuracy: {report.accuracy.factualAccuracy}</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+                    <h3>Structure</h3>
+                    <div className="col mt-3">
+                        <Card name="Structure" progress={report && report.structure && (report.structure.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    </div>
+                    <div className="col">
+                        <div >
+                            
+                            <div className="transcript-content">
+                                {report && report.structure && (
+                                    <>
+                                        <p>Organization: {report.structure.organization}</p>
+                                        <p>Transitions: {report.structure.transitions}</p>
+                                        <p>Timing: {report.structure.timing}</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div className="row transcript-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+                    <h3>Delivery</h3>
+                    <div className="col mt-3">
+                        <Card name="Delivery" progress={report && report.delivery && (report.delivery.score)} borderColor="blue" progressColor="#0cf566" size={75} />
+                    </div>
+                    <div className="col">
+                        <div >
+                            
+                            <div className="transcript-content">
+                                {report && report.delivery && (
+                                    <>
+                                        <p>Tone: {report.delivery.tone}</p>
+                                        <p>Language: {report.delivery.language}</p>
+                                        <p>Pacing and Rhythm: {report.delivery.pacingAndRhythm}</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>   
                     </div>
                 </div>
             </div>
-
-            {/* Text and suggestions container */}
-            <div className="container">
-                <div className="row mt-5">
-                    <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">
-                        <h3>Transcript</h3>
-                        <div className=" p-3 overflow-auto shadow" style={{ maxHeight: '175px', maxWidth: '100%' }}>
-                            <p id='transcript'>{transcript}</p>
-                        </div>
-                    </div>
-                    <div className="col-6 border rounded shadow" data-aos='fade-down' data-aos-delay="500" data-aos-duration="1500">
-                        <h3>Suggestions</h3>
-                        <p>Some suggestions here</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     );
 };

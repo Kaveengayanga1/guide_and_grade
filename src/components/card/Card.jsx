@@ -44,7 +44,7 @@ const Card = ({ name, progress, borderColor = '#4caf50', progressColor = '#4caf5
         borderRadius: '15px',
         padding: '20px',
         boxSizing: 'border-box',
-        backgroundColor: '#f8f9fa',
+        //backgroundColor: '#f8f9fa',
     };
 
     const textStyle = {
