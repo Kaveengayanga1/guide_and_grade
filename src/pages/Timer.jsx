@@ -237,7 +237,7 @@ export default function Timer(props){
                                 </button>
                             </div>
                             <div className="col-12 col-sm-4 mb-2 mb-sm-0">
-                                <button className="btn btn-primary w-100" onClick={generateReport} disabled={start || time == 0}>
+                                <button className="btn btn-primary w-100" onClick={generateReport} disabled={start}>
                                     Generate Report
                                 </button>
                             </div>
