@@ -34,8 +34,6 @@ const Summary = (props) => {
                 }
                 return eventData.status2;
             });
-
-
           };
         } else {
           console.log("Coudn't connect to status");
@@ -73,12 +71,12 @@ const Summary = (props) => {
         <div className="summary-container">
             <h1 className="title" data-aos="zoom-in" data-aos-duration="1000">Evaluation Results</h1>
 
-            <div className="card-container" data-aos="fade-in" data-aos-delay="20" data-aos-duration="100">
+            
                 <div className="row transcript-container">
-                    <div className="col-4 mt-5">
+                    <div className="col-12 col-md-4 mt-5">
                         <Card name="Overall" progress={report && report.engagement && ((report.engagement.score+report.content.score+report.structure.score+report.delivery.score+report.accuracy.score)/5)} borderColor="white" progressColor="blue" size={75} />
                     </div>
-                    <div className="col-8">
+                    <div className="col-12 col-md-8">
                         <div>
                             <h3>Transcript</h3>
                             <div className="transcript-content">
@@ -187,7 +185,7 @@ const Summary = (props) => {
                         </div>   
                     </div>
                 </div>
-            </div>
+            
         </div>
     );
 };
