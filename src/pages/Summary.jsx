@@ -32,7 +32,7 @@ const Summary = (props) => {
                     console.log("Getting report");
                     getReport();
                 }
-                return eventData.status1;
+                return eventData.status2;
             });
 
 
