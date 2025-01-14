@@ -20,41 +20,34 @@ const Home = (props) => {
       <div
         className="position-absolute top-0 start-0 w-100 h-100"
         style={{
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          backgroundColor: "rgba(0, 0, 0, 0.2)",
+
         }}
       ></div>
 
       {/* Content */}
       <div className="row position-relative text-light">
-        <div className="col-12 text-center">
+        <div className="col-12 text-center"
+          style={{
+            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.9)", // Subtle text shadow
+          }}
+          data-aos="fade-up"
+          data-aos-delay="400"
+          data-aos-duration="1000"
+        >
           <h1
-            className="display-4 mb-4"
-            data-aos="fade-up"
-            data-aos-delay="400"
-            data-aos-duration="1000"
-            style={{
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)", // Subtle text shadow
-            }}
+            className="mt-3 mb-4"
           >
             Welcome to Guide & Grade
           </h1>
 
           <p
             className="lead"
-            data-aos="fade-up"
-            data-aos-delay="400"
-            data-aos-duration="1000"
-            style={{
-              textShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)", // Subtle text shadow
-            }}
           >
             Revolutionize your presentations with real-time feedback and speech analysis. Master clarity, fluency, pacing, and engagement.
           </p>
           <p
             className="lead"
-            data-aos="fade-up"
-            data-aos-delay="400"
-            data-aos-duration="1000"
             style={{
               textShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)", // Subtle text shadow
             }}
@@ -68,7 +61,7 @@ const Home = (props) => {
               console.log("explore features");
               props.setPage("analyze");
             }}
-            data-aos="fade-down"
+            data-aos="zoom-in"
             data-aos-delay="400"
             data-aos-duration="1000"
           >
